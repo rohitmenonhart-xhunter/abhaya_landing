@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowDown, Sparkles } from 'lucide-react';
+import { scrollToSection } from '../utils/scrollUtils';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -135,7 +137,10 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <button className="group relative bg-warm-white text-off-black px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg hover:bg-warm-white-200">
+          <button 
+            onClick={() => scrollToSection('about')} 
+            className="group relative bg-warm-white text-off-black px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg hover:bg-warm-white-200"
+          >
             <span className="flex items-center relative z-10">
               Know More
               <ArrowDown className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform duration-300" />
@@ -143,15 +148,20 @@ const Hero = () => {
             <span className="absolute inset-0 rounded-full bg-warm-white-200/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             <span className="absolute -inset-1 rounded-full bg-warm-white-100/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></span>
           </button>
-          <button className="group relative border-2 border-warm-white/60 hover:border-warm-white text-warm-white hover:bg-warm-white/10 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 backdrop-blur-sm hover:shadow-2xl">
-            <span className="relative z-10">Get Support</span>
-            <span className="absolute inset-0 rounded-full bg-warm-white/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </button>
+          <Link to="/services">
+            <button className="group relative border-2 border-warm-white/60 hover:border-warm-white text-warm-white hover:bg-warm-white/10 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 backdrop-blur-sm hover:shadow-2xl">
+              <span className="relative z-10">Get Support</span>
+              <span className="absolute inset-0 rounded-full bg-warm-white/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </button>
+          </Link>
         </div>
       </div>
 
       {/* Enhanced scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        onClick={() => scrollToSection('about')}
+      >
         <div className="flex flex-col items-center animate-bounce">
           <div className="w-6 h-10 border-2 border-warm-white/50 rounded-full flex justify-center relative group">
             <div className="w-1 h-3 bg-warm-white/70 rounded-full mt-2 animate-pulse"></div>

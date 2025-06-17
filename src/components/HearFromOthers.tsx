@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Quote, Heart, Star, Shield, BookOpen, Bookmark, ChevronRight, X, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HearFromOthers = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [expandedStory, setExpandedStory] = useState<number | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showShareConfirmation, setShowShareConfirmation] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,6 +34,14 @@ const HearFromOthers = () => {
       observer.disconnect();
     };
   }, []);
+
+  const handleShareStory = () => {
+    // In a real app, this would open a form or modal
+    setShowShareConfirmation(true);
+    setTimeout(() => {
+      setShowShareConfirmation(false);
+    }, 3000);
+  };
 
   const stories = [
     {
@@ -145,10 +155,25 @@ const HearFromOthers = () => {
     );
   };
 
+  // Share confirmation toast
+  const renderShareConfirmation = () => {
+    if (!showShareConfirmation) return null;
+    
+    return (
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-off-black text-warm-white px-6 py-4 rounded-xl shadow-2xl z-50 animate-fade-in flex items-center">
+        <Heart className="w-5 h-5 mr-3 text-warm-white" />
+        <p>Thank you for your interest! A form will be sent to your email shortly.</p>
+      </div>
+    );
+  };
+
   return (
     <>
       {/* Modal for expanded story */}
       {renderExpandedStory()}
+      
+      {/* Share confirmation toast */}
+      {renderShareConfirmation()}
       
       <section id="stories" ref={sectionRef} className="py-24 bg-warm-white relative overflow-hidden">
         {/* Background decorations */}
@@ -248,18 +273,23 @@ const HearFromOthers = () => {
                     Every voice contributes to our collective healing and strength.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="group bg-warm-white text-off-black hover:bg-warm-white-200 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 shadow-lg hover:shadow-xl">
+                    <button 
+                      onClick={handleShareStory}
+                      className="group bg-warm-white text-off-black hover:bg-warm-white-200 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                    >
                       <span className="flex items-center">
                         Share Your Story
                         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                       </span>
                     </button>
-                    <button className="group border-2 border-warm-white/80 hover:border-warm-white text-warm-white hover:bg-warm-white/10 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500">
-                      <span className="flex items-center">
-                        Get Support
-                        <Heart className="w-5 h-5 ml-2 group-hover:scale-125 transition-transform duration-300" />
-                      </span>
-                    </button>
+                    <Link to="/services">
+                      <button className="group border-2 border-warm-white/80 hover:border-warm-white text-warm-white hover:bg-warm-white/10 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500">
+                        <span className="flex items-center">
+                          Get Support
+                          <Heart className="w-5 h-5 ml-2 group-hover:scale-125 transition-transform duration-300" />
+                        </span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

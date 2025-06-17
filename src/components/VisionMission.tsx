@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Eye, Target, Users, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const VisionMission = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -110,12 +111,14 @@ const VisionMission = () => {
                   Together, we create a supportive environment where healing begins and hope flourishes. 
                   Every voice matters, every story counts, and every step forward brings us closer to a safer world.
                 </p>
-                <button className="group bg-warm-white text-off-black hover:bg-warm-white-200 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 shadow-lg hover:shadow-xl">
-                  <span className="flex items-center">
-                    Get Involved
-                    <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
-                  </span>
-                </button>
+                <Link to="/get-involved">
+                  <button className="group bg-warm-white text-off-black hover:bg-warm-white-200 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 shadow-lg hover:shadow-xl">
+                    <span className="flex items-center">
+                      Get Involved
+                      <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
+                    </span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

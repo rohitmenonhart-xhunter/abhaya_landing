@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Sparkles, Star, HandHeart, Calendar, Mail, MapPin } from 'lucide-react';
 
 const GetInvolved = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [activeButton, setActiveButton] = useState<string | null>(null);
 
   useEffect(() => {
     // On dedicated page, we want the component to be visible immediately
@@ -30,6 +31,40 @@ const GetInvolved = () => {
       return () => observer.disconnect();
     }
   }, []);
+
+  // Function to handle button clicks
+  const handleButtonClick = (buttonType: string) => {
+    setActiveButton(buttonType);
+    
+    // In a real app, this would open a form or redirect to a specific page
+    // For now, we'll just show a confirmation message
+    setTimeout(() => {
+      setActiveButton(null);
+    }, 3000);
+  };
+
+  // Function to handle email click
+  const handleEmailClick = () => {
+    window.location.href = "mailto:abhayacares@gmail.com";
+  };
+
+  // Render button text based on active state
+  const getButtonText = (buttonType: string) => {
+    if (activeButton === buttonType) {
+      return "Processing...";
+    }
+    
+    switch (buttonType) {
+      case "volunteer":
+        return "Join Our Volunteers";
+      case "events":
+        return "Attend Our Events";
+      case "contact":
+        return "Contact Us";
+      default:
+        return "Learn More";
+    }
+  };
 
   return (
     <section id="get-involved" ref={sectionRef} className="py-24 bg-warm-white opacity-0 transform translate-y-10 relative overflow-hidden">
@@ -93,9 +128,12 @@ const GetInvolved = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleButtonClick('volunteer')}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Join Our Volunteers
+                      {getButtonText('volunteer')}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>
@@ -136,9 +174,12 @@ const GetInvolved = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleButtonClick('events')}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Attend Our Events
+                      {getButtonText('events')}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>
@@ -187,7 +228,14 @@ const GetInvolved = () => {
                       <div>
                         <div className="flex items-start mb-4">
                           <Mail className="w-5 h-5 text-off-black mr-2 flex-shrink-0 mt-1" />
-                          <a href="mailto:abhayacares@gmail.com" className="text-off-black hover:text-off-black-100 transition-colors">
+                          <a 
+                            href="mailto:abhayacares@gmail.com" 
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleEmailClick();
+                            }}
+                            className="text-off-black hover:text-off-black-100 transition-colors"
+                          >
                             abhayacares@gmail.com
                           </a>
                         </div>
@@ -200,9 +248,12 @@ const GetInvolved = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleButtonClick('contact')}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Contact Us
+                      {getButtonText('contact')}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>

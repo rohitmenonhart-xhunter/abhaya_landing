@@ -1,7 +1,25 @@
 import React from 'react';
 import { Heart, Mail, MapPin, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { scrollToSection } from '../utils/scrollUtils';
 
 const Footer = () => {
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = "mailto:abhayacares@gmail.com";
+  };
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    
+    // If we're not on the homepage, navigate to homepage first
+    if (window.location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`;
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
+
   return (
     <footer className="bg-off-black text-warm-white py-16 relative overflow-hidden">
       {/* Background decorations */}
@@ -15,7 +33,7 @@ const Footer = () => {
           
           {/* Enhanced Logo and Mission */}
           <div className="md:col-span-1">
-            <div className="flex items-center space-x-3 mb-6">
+            <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="relative">
                 <div className="w-14 h-14 bg-warm-white rounded-full flex items-center justify-center shadow-lg">
                   <Heart className="w-8 h-8 text-off-black" />
@@ -27,7 +45,7 @@ const Footer = () => {
               <span className="text-3xl font-bold text-warm-white">
                 ABHAYA
               </span>
-            </div>
+            </Link>
             <p className="text-warm-white-200 leading-relaxed text-lg mb-6">
               Empowering survivors through compassion, support, and advocacy. 
               Together, we build a safer and more equitable world for all.
@@ -43,15 +61,16 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-6 text-warm-white">Quick Links</h3>
             <div className="space-y-3">
               {[
-                { name: 'Home', href: '#home' },
-                { name: 'About Us', href: '#about' },
-                { name: 'Open Hearts', href: '#open-hearts' },
-                { name: 'Hear from Others', href: '#stories' },
-                { name: 'Contact', href: '#contact' }
+                { name: 'Home', href: '/', section: 'home' },
+                { name: 'About Us', href: '/about', section: 'about' },
+                { name: 'Open Hearts', href: '/#open-hearts', section: 'open-hearts' },
+                { name: 'Hear from Others', href: '/#stories', section: 'stories' },
+                { name: 'Contact', href: '/#contact', section: 'contact' }
               ].map((link) => (
                 <a 
                   key={link.name}
                   href={link.href} 
+                  onClick={(e) => handleLinkClick(e, link.section)}
                   className="block text-warm-white-200 hover:text-warm-white transition-all duration-300 hover:translate-x-2 text-lg"
                 >
                   {link.name}
@@ -72,6 +91,7 @@ const Footer = () => {
                 <Mail className="w-5 h-5 text-warm-white-300" />
                 <a 
                   href="mailto:abhayacares@gmail.com"
+                  onClick={handleEmailClick}
                   className="text-warm-white-200 hover:text-warm-white transition-colors"
                 >
                   abhayacares@gmail.com
@@ -88,6 +108,7 @@ const Footer = () => {
 
             <a 
               href="mailto:abhayacares@gmail.com"
+              onClick={handleEmailClick}
               className="inline-block bg-warm-white text-off-black px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-warm-white-200 shadow-lg hover:shadow-xl"
             >
               Contact Support

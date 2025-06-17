@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Sparkles, Star, BookOpen, Scale, Users } from 'lucide-react';
 
 const Services = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [activeService, setActiveService] = useState<string | null>(null);
 
   useEffect(() => {
     // On dedicated page, we want the component to be visible immediately
@@ -30,6 +31,35 @@ const Services = () => {
       return () => observer.disconnect();
     }
   }, []);
+
+  // Function to handle service button clicks
+  const handleServiceButtonClick = (service: string) => {
+    setActiveService(service);
+    
+    // In a real app, this would redirect to a specific page or open a form
+    // For now, we'll just show a confirmation message
+    setTimeout(() => {
+      setActiveService(null);
+    }, 3000);
+  };
+
+  // Render button text based on active state
+  const getButtonText = (service: string) => {
+    if (activeService === service) {
+      return "Processing...";
+    }
+    
+    switch (service) {
+      case "counseling":
+        return "Access Counseling";
+      case "legal":
+        return "Seek Legal Help";
+      case "awareness":
+        return "Join Our Programs";
+      default:
+        return "Learn More";
+    }
+  };
 
   return (
     <section id="services" ref={sectionRef} className="py-24 bg-warm-white opacity-0 transform translate-y-10 relative overflow-hidden">
@@ -93,9 +123,12 @@ const Services = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleServiceButtonClick("counseling")}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Access Counseling
+                      {getButtonText("counseling")}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>
@@ -136,9 +169,12 @@ const Services = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleServiceButtonClick("legal")}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Seek Legal Help
+                      {getButtonText("legal")}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>
@@ -179,9 +215,12 @@ const Services = () => {
                 </div>
                 
                 <div className="flex justify-center">
-                  <button className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg">
+                  <button 
+                    onClick={() => handleServiceButtonClick("awareness")}
+                    className="group bg-off-black hover:bg-off-black-100 text-warm-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 transform hover:scale-110 hover:shadow-2xl shadow-lg"
+                  >
                     <span className="flex items-center">
-                      Join Our Programs
+                      {getButtonText("awareness")}
                       <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </button>
