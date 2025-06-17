@@ -3,6 +3,15 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        'warm-white': '#FAF9F6',
+        'warm-white-100': '#F7F6F2',
+        'warm-white-200': '#F0EDE6',
+        'warm-white-300': '#E8E4D9',
+        'off-black': '#121212',
+        'off-black-100': '#1E1E1E',
+        'off-black-200': '#2D2D2D',
+      },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],
       },

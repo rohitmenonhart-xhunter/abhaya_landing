@@ -5,6 +5,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base colors */
+:root {
+  --color-background: theme('colors.warm-white');
+  --color-foreground: theme('colors.off-black');
+  --color-accent: theme('colors.off-black');
+  --color-accent-light: theme('colors.off-black-100');
+  --color-accent-lighter: theme('colors.off-black-200');
+}
+
+/* Set default background and text colors */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
 /* Title font class */
 .font-serif-title {
   font-family: 'Playfair Display', serif;
@@ -179,18 +194,18 @@ a:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: theme('colors.warm-white-200');
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #8B5CF6, #EC4899);
+  background: theme('colors.off-black-100');
   border-radius: 5px;
-  border: 2px solid #f8fafc;
+  border: 2px solid theme('colors.warm-white-200');
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #7C3AED, #DB2777);
+  background: theme('colors.off-black');
 }
 
 /* Enhanced shadow utilities */
@@ -228,16 +243,16 @@ a:focus {
 
 /* Custom button styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+  @apply bg-off-black hover:bg-off-black-100 text-warm-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
 }
 
 .btn-secondary {
-  @apply border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105;
+  @apply border-2 border-off-black text-off-black hover:bg-off-black hover:text-warm-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105;
 }
 
 /* Enhanced card styles */
 .card {
-  @apply bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-purple-200;
+  @apply bg-warm-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-warm-white-200 hover:border-off-black-200;
 }
 
 .card-hover {
